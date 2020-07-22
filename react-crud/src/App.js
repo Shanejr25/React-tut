@@ -3,6 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   // define methods that will be used
   onClick() {
     alert('Clicked');
@@ -11,8 +17,11 @@ class App extends Component {
     alert('Entered');
   }
   
-  onChange(event) { // event
-    console.log(event.target.value);
+  onSubmit(event) { // event
+    event.preventDefault();
+
+    //alert('submitted');
+    console.log(this.input.value); // produces error because onsubmit needs to be bound to constructor
   }
 
   render() { // loads the things onto the page
@@ -44,24 +53,7 @@ class App extends Component {
             })
         }
       </h2>
-      <h1>
-        {
-          list.map(item => {
-            return (
-              <div onClick={this.onClick}>{item}</div>
-            );
-          })
-        }
-      </h1>
-      <h3>
-        {
-          list.map(item => {
-            return (
-              <div onMouseEnter={this.onMouseEnter}>{item}</div>
-            );
-          })
-        }
-      </h3>
+      
       <h4>
         {
           list.map(item => {
@@ -71,7 +63,9 @@ class App extends Component {
           })
         }
       </h4>
-      <input onChange={this.onChange} />
+        <form onSubmit={this.onSubmit}>
+          <input onChange={this.onChange} ref={input => this.input = input} />
+        </form>
     </div>
     );
   }
