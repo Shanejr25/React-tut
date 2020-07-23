@@ -10,20 +10,41 @@ class App extends Component {
 
     // manage the state of the object
     this.state = {
-      title: 'App title' // property 
+      title: 'OG title', // property 
+      name: 'OG name',
+      checked: true,
+      shouldRenderSky: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.onClickSky = this.onClickSky.bind(this);
   }
   // define methods that will be used
   onClick() {
     this.setState({
+      name: 'New app name',
       title: 'New app title'
     });
   }
+  onClickSky() {
+    this.setState({
+      shouldRenderSky : true
+    });
+  }
+  renderSky(event){
+    if (!this.state.shouldRenderSky) {return null;}
+
+    return <h2>The Sky is Red</h2>
+  }
+
   onMouseEnter() {
     alert('Entered');
+  }
+
+  updateName(event) {
+    this.setState({name: event.target.value}); // set the state of the event
   }
   
   onSubmit(event) { // event
@@ -44,16 +65,24 @@ class App extends Component {
     */}
 
     return (
-      <div className ="App"> 
-        <h1>
-          {this.state.title} {/* set the title of the state z*/} 
-          <div onClick={this.onClick}> Click here!</div>
+      <div className ="App"> {/* if any of the components are deleted, the default prop will be filled in */}
+          
+          <input 
+            type="checkbox"
+            onChange={this.updateName}
+            value={this.state.name}
+            defaultChecked={this.state.checked} // checked by default
+          />
           <MyComponent 
-            title="this is a component title"
-            name="Shane"
+            title={this.state.title}
+            name={this.state.name} 
+            
             onClick={this.onClick}
+            shouldRenderSky={this.state.shouldRenderSky}
+            onClickSky={this.onClickSky}
+            
             /> {/* clean up the code by using other components as objects */}
-        </h1> 
+            {this.renderSky()}
 
         {/* PART 1 - 10 OF TUT
         
