@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MyComponent from './MyComponent'
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
+    // manage the state of the object
+    this.state = {
+      title: 'App title' // property 
+    };
+
     this.onSubmit = this.onSubmit.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
   // define methods that will be used
   onClick() {
-    alert('Clicked');
+    this.setState({
+      title: 'New app title'
+    });
   }
   onMouseEnter() {
     alert('Entered');
@@ -25,19 +34,29 @@ class App extends Component {
   }
 
   render() { // loads the things onto the page
-    
+    {/* 
     const list = [ // array of strings
       'Item 1',
       'Item 2',
       'Item 3',
       'Random'
     ];
-
-    const title ='This is Shanes React App';
-    const anotherTitle = 'Another title';
+    */}
 
     return (
-      <div className ="App">
+      <div className ="App"> 
+        <h1>
+          {this.state.title} {/* set the title of the state z*/} 
+          <div onClick={this.onClick}> Click here!</div>
+          <MyComponent 
+            title="this is a component title"
+            name="Shane"
+            onClick={this.onClick}
+            /> {/* clean up the code by using other components as objects */}
+        </h1> 
+
+        {/* PART 1 - 10 OF TUT
+        
         <h1>
         {
           true ? anotherTitle : title
@@ -63,9 +82,10 @@ class App extends Component {
           })
         }
       </h4>
-        <form onSubmit={this.onSubmit}>
-          <input onChange={this.onChange} ref={input => this.input = input} />
+        <form onSubmit={this.onSubmit}> 
+          <input onChange={this.onChange} ref={input => this.input = input} /> 
         </form>
+        */}
     </div>
     );
   }
